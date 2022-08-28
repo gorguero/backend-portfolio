@@ -2,6 +2,7 @@
 package backendportfolio.miportfolio.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,20 +34,20 @@ public class Persona implements Serializable{
     private String perfilLaboral;
 
     
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idEducacion") //LAZY -> Hace una consulta especifica de si queremos traer todo lo del usuario
-//    private List<Educacion> educacionList; 
-//    
-//    @OneToMany
-//    private List<ExperienciaLaboral> expLaboralList;
-//    
-//    @OneToMany
-//    private List<Softskill> skillList;
-//    
-//    @OneToMany
-//    private List<Proyecto> proyectoList;
-//    
-//    @OneToMany
-//    private List<Tecnologia> tecnologiaList;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idEducacion") //LAZY -> Hace una consulta especifica de si queremos traer todo lo del usuario
+    private List<Educacion> educacionList; 
+    
+    @OneToMany
+    private List<ExperienciaLaboral> expLaboralList;
+    
+    @OneToMany
+    private List<Softskill> skillList;
+    
+    @OneToMany
+    private List<Proyecto> proyectoList;
+    
+    @OneToMany
+    private List<Tecnologia> tecnologiaList;
 
     public Persona() {
     }
