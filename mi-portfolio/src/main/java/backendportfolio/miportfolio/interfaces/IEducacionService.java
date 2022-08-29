@@ -9,7 +9,7 @@ public interface IEducacionService {
     
     List<Educacion> getEducacion();
     
-    public void saveEducacion(Educacion persona);
+    public void saveEducacion(Educacion educacion);
     
     public void deleteEducacion(Long id);
     
