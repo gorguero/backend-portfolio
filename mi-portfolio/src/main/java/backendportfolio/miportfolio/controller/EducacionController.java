@@ -5,6 +5,8 @@ import backendportfolio.miportfolio.entity.Educacion;
 import backendportfolio.miportfolio.interfaces.IEducacionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,17 @@ public class EducacionController {
         return educacionService.getEducacion();
     }
     
-    @PostMapping ("/educacion/crear")
-    public String agregarEducacion(@RequestBody Educacion educacion){
-        educacionService.saveEducacion(educacion);
-        return "Se ha creado correctamente";
+    @PostMapping("/educacion/crear")
+    public ResponseEntity<Educacion> crearEducacion(@RequestBody Educacion educacion){
+        Educacion educacionCreada = educacionService.saveEducacion(educacion);
+        return new ResponseEntity<>(educacionCreada,HttpStatus.CREATED);
     }
+    
+//    @PostMapping ("/educacion/crear")
+//    public String agregarEducacion(@RequestBody Educacion educacion){
+//        educacionService.saveEducacion(educacion);
+//        return "Se ha creado correctamente";
+//    }
     
     @DeleteMapping ("/educacion/borrar/{id}")
     public String eliminarEducacion(@PathVariable Long id){
