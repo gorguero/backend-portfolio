@@ -43,10 +43,16 @@ public class EducacionController {
 //        return "Se ha creado correctamente";
 //    }
     
+//    @DeleteMapping ("/educacion/borrar/{id}")
+//    public String eliminarEducacion(@PathVariable Long id){
+//        educacionService.deleteEducacion(id);
+//        return "Se ha eliminado correctamente.";
+//    }
+    
     @DeleteMapping ("/educacion/borrar/{id}")
-    public String eliminarEducacion(@PathVariable Long id){
+    public ResponseEntity<?> eliminarEducacion(@PathVariable Long id){
         educacionService.deleteEducacion(id);
-        return "Se ha eliminado correctamente.";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     @PutMapping ("/educacion/editar/{id}")
