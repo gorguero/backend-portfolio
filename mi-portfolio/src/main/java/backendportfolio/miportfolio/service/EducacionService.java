@@ -2,6 +2,7 @@
 package backendportfolio.miportfolio.service;
 
 import backendportfolio.miportfolio.entity.Educacion;
+import backendportfolio.miportfolio.exceptions.ResourceNotFoundException;
 import backendportfolio.miportfolio.interfaces.IEducacionService;
 import backendportfolio.miportfolio.repositroy.IEducacionRepository;
 import java.util.List;
@@ -32,7 +33,7 @@ public class EducacionService implements IEducacionService{
 
     @Override
     public Educacion findEducacion(Long id) {
-        return iEducacionRepository.findById(id).orElse(null);
+        return iEducacionRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("No existe el empleado con ese ID") );
     }
 
     @Override

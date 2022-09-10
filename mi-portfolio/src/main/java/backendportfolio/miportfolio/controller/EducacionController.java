@@ -2,6 +2,7 @@
 package backendportfolio.miportfolio.controller;
 
 import backendportfolio.miportfolio.entity.Educacion;
+import backendportfolio.miportfolio.exceptions.ResourceNotFoundException;
 import backendportfolio.miportfolio.interfaces.IEducacionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +36,7 @@ public class EducacionController {
     public ResponseEntity<Educacion> crearEducacion(@RequestBody Educacion educacion){
         Educacion educacionCreada = educacionService.saveEducacion(educacion);
         return new ResponseEntity<>(educacionCreada,HttpStatus.CREATED);
-    }
-    
-//    @PostMapping ("/educacion/crear")
-//    public String agregarEducacion(@RequestBody Educacion educacion){
-//        educacionService.saveEducacion(educacion);
-//        return "Se ha creado correctamente";
-//    }
-    
-//    @DeleteMapping ("/educacion/borrar/{id}")
-//    public String eliminarEducacion(@PathVariable Long id){
-//        educacionService.deleteEducacion(id);
-//        return "Se ha eliminado correctamente.";
-//    }
+    }   
     
     @DeleteMapping ("/educacion/borrar/{id}")
     public ResponseEntity<?> eliminarEducacion(@PathVariable Long id){
@@ -56,29 +45,47 @@ public class EducacionController {
     }
     
     @PutMapping ("/educacion/editar/{id}")
-    public Educacion editarEducacion(@PathVariable Long id,
-                                    @RequestParam ("nombreInsti") String nuevoNombreInsti,
-                                    @RequestParam ("link_logo") String nuevoLogo,
-                                    @RequestParam ("titulo") String nuevoTitulo,
-                                    @RequestParam ("fechaInicio") String nuevoFechaInicio,
-                                    @RequestParam ("fechaFinal") String nuevoFechaFinal){
+    public ResponseEntity<Educacion> editarEducacion(@PathVariable Long id, @RequestBody Educacion educacionEditar){
         
         Educacion educacion = educacionService.findEducacion(id);
         
-        educacion.setNombreInsti(nuevoNombreInsti);
-        educacion.setLink_logo(nuevoLogo);
-        educacion.setTitulo(nuevoTitulo);
-        educacion.setFechaInicio(nuevoFechaInicio);
-        educacion.setFechaFinal(nuevoFechaFinal);
+        educacion.setNombreInsti(educacionEditar.getNombreInsti());
+        educacion.setLink_logo(educacionEditar.getLink_logo());
+        educacion.setTitulo(educacionEditar.getTitulo());
+        educacion.setFechaInicio(educacionEditar.getFechaInicio());
+        educacion.setFechaFinal(educacionEditar.getFechaFinal());
         
-        educacionService.saveEducacion(educacion);
+        Educacion educacionActualizada = educacionService.saveEducacion(educacion);
         
-        return educacion;
+        return ResponseEntity.ok(educacionActualizada);
+        
     }
     
+//    @PutMapping ("/educacion/editar/{id}")
+//    public Educacion editarEducacion(@PathVariable Long id,
+//                                    @RequestParam ("nombreInsti") String nuevoNombreInsti,
+//                                    @RequestParam ("link_logo") String nuevoLogo,
+//                                    @RequestParam ("titulo") String nuevoTitulo,
+//                                    @RequestParam ("fechaInicio") String nuevoFechaInicio,
+//                                    @RequestParam ("fechaFinal") String nuevoFechaFinal){
+//        
+//        Educacion educacion = educacionService.findEducacion(id);
+//        
+//        educacion.setNombreInsti(nuevoNombreInsti);
+//        educacion.setLink_logo(nuevoLogo);
+//        educacion.setTitulo(nuevoTitulo);
+//        educacion.setFechaInicio(nuevoFechaInicio);
+//        educacion.setFechaFinal(nuevoFechaFinal);
+//        
+//        educacionService.saveEducacion(educacion);
+//        
+//        return educacion;
+//    }
+    
     @GetMapping ("/educacion/encontrar/{id}")
-    public Educacion findEducacion(@PathVariable Long id){
-        return educacionService.findEducacion(id);
+    public ResponseEntity<Educacion> findEducacion(@PathVariable Long id){
+        Educacion educacionBuscada = educacionService.findEducacion(id);
+        return new ResponseEntity<>(educacionBuscada, HttpStatus.OK);
     }
     
 }
