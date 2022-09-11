@@ -25,8 +25,7 @@ public class ExperienciaLaboral {
     public ExperienciaLaboral() {
     }
 
-    public ExperienciaLaboral(Long idExpLaboral, String nombreEmpresa, String link_logo, String nombrePuesto, String fechaIngreso, String fechaFin) {
-        this.idExpLaboral = idExpLaboral;
+    public ExperienciaLaboral(String nombreEmpresa, String link_logo, String nombrePuesto, String fechaIngreso, String fechaFin) {
         this.nombreEmpresa = nombreEmpresa;
         this.link_logo = link_logo;
         this.nombrePuesto = nombrePuesto;
