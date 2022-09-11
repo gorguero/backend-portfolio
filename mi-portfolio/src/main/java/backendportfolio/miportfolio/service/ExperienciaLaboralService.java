@@ -45,21 +45,11 @@ public class ExperienciaLaboralService implements IExperienciaLaboralService{
     @Override
     public Optional<ExperienciaLaboral> getOne(Long id){
         return iExpLaboralRepository.findById(id);
-    }
-    
-//    @Override
-//    public Optional<ExperienciaLaboral> getByNombreExperiencia(String nombreEmpresa){
-//        return iExpLaboralRepository.findByNombreExperiencia(nombreEmpresa);
-//    }
+    }    
     
     @Override
     public boolean existsById(Long id){
         return iExpLaboralRepository.existsById(id);
     }
-    
-//    @Override
-//    public boolean existsByNombreExperiencia(String nombreEmpresa){
-//        return iExpLaboralRepository.existsByNombreExperiencia(nombreEmpresa);
-//    }
-//    
+     
 }

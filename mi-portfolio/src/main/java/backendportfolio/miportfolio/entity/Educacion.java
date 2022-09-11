@@ -25,8 +25,7 @@ public class Educacion {
     public Educacion() {
     }
 
-    public Educacion(Long idEducacion, String nombreInsti, String link_logo, String titulo, String fechaInicio, String fechaFinal) {
-        this.idEducacion = idEducacion;
+    public Educacion(String nombreInsti, String link_logo, String titulo, String fechaInicio, String fechaFinal) {
         this.nombreInsti = nombreInsti;
         this.link_logo = link_logo;
         this.titulo = titulo;

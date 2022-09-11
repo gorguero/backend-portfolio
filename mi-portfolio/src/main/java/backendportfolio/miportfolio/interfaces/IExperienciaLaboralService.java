@@ -20,9 +20,5 @@ public interface IExperienciaLaboralService {
     
     public boolean existsById(Long id);
     
-//    public boolean existsByNombreExperiencia(String nombreEmpresa);
-    
-//    public Optional<ExperienciaLaboral> getByNombreExperiencia(String nombreEmpresa);
-    
     public Optional<ExperienciaLaboral> getOne(Long id);
 }

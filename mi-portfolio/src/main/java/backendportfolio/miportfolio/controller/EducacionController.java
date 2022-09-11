@@ -1,10 +1,12 @@
 
 package backendportfolio.miportfolio.controller;
 
+import backendportfolio.miportfolio.dto.dtoEducacion;
 import backendportfolio.miportfolio.entity.Educacion;
 import backendportfolio.miportfolio.exceptions.ResourceNotFoundException;
 import backendportfolio.miportfolio.interfaces.IEducacionService;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,65 +29,68 @@ public class EducacionController {
     private IEducacionService educacionService;
     
     @GetMapping ("/educacion/obtener")
-    @ResponseBody
-    public List<Educacion> getEducacion(){
-        return educacionService.getEducacion();
+    public ResponseEntity<List<Educacion>> getEducacion(){
+        List<Educacion> listEducacion = educacionService.getEducacion();
+        return new ResponseEntity(listEducacion, HttpStatus.OK);
     }
     
     @PostMapping("/educacion/crear")
-    public ResponseEntity<Educacion> crearEducacion(@RequestBody Educacion educacion){
-        Educacion educacionCreada = educacionService.saveEducacion(educacion);
-        return new ResponseEntity<>(educacionCreada,HttpStatus.CREATED);
+    public ResponseEntity<?> crearEducacion(@RequestBody dtoEducacion dtoEducacion){
+        if(StringUtils.isBlank(dtoEducacion.getNombreInsti()))
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+    
+        Educacion educacion = new Educacion(dtoEducacion.getNombreInsti(), dtoEducacion.getLink_logo(), dtoEducacion.getTitulo(), dtoEducacion.getFechaInicio(), dtoEducacion.getFechaFinal());
+        educacionService.saveEducacion(educacion);
+        
+        return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
     }   
     
     @DeleteMapping ("/educacion/borrar/{id}")
-    public ResponseEntity<?> eliminarEducacion(@PathVariable Long id){
+    public ResponseEntity<?> eliminarEducacion(@PathVariable("id") Long id){
+        
+        if(!educacionService.existsById(id))
+            return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
+        
         educacionService.deleteEducacion(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("Educacion eliminada"), HttpStatus.OK);
     }
     
     @PutMapping ("/educacion/editar/{id}")
-    public ResponseEntity<Educacion> editarEducacion(@PathVariable Long id, @RequestBody Educacion educacionEditar){
+    public ResponseEntity<?> editarEducacion(@PathVariable("id") Long id, @RequestBody dtoEducacion dtoEducacion){
         
-        Educacion educacion = educacionService.findEducacion(id);
+        if(!educacionService.existsById(id))
+            return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(dtoEducacion.getNombreInsti()))
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         
-        educacion.setNombreInsti(educacionEditar.getNombreInsti());
-        educacion.setLink_logo(educacionEditar.getLink_logo());
-        educacion.setTitulo(educacionEditar.getTitulo());
-        educacion.setFechaInicio(educacionEditar.getFechaInicio());
-        educacion.setFechaFinal(educacionEditar.getFechaFinal());
+        Educacion educacion = educacionService.getOne(id).get();
+        educacion.setNombreInsti(dtoEducacion.getNombreInsti());
+        educacion.setLink_logo(dtoEducacion.getLink_logo());
+        educacion.setTitulo(dtoEducacion.getTitulo());
+        educacion.setFechaInicio(dtoEducacion.getFechaInicio());
+        educacion.setFechaFinal(dtoEducacion.getFechaFinal());
         
-        Educacion educacionActualizada = educacionService.saveEducacion(educacion);
+        educacionService.saveEducacion(educacion);
         
-        return ResponseEntity.ok(educacionActualizada);
+        return new ResponseEntity(new Mensaje("Educacion actualizada"), HttpStatus.OK);
         
-    }
-    
-//    @PutMapping ("/educacion/editar/{id}")
-//    public Educacion editarEducacion(@PathVariable Long id,
-//                                    @RequestParam ("nombreInsti") String nuevoNombreInsti,
-//                                    @RequestParam ("link_logo") String nuevoLogo,
-//                                    @RequestParam ("titulo") String nuevoTitulo,
-//                                    @RequestParam ("fechaInicio") String nuevoFechaInicio,
-//                                    @RequestParam ("fechaFinal") String nuevoFechaFinal){
-//        
-//        Educacion educacion = educacionService.findEducacion(id);
-//        
-//        educacion.setNombreInsti(nuevoNombreInsti);
-//        educacion.setLink_logo(nuevoLogo);
-//        educacion.setTitulo(nuevoTitulo);
-//        educacion.setFechaInicio(nuevoFechaInicio);
-//        educacion.setFechaFinal(nuevoFechaFinal);
-//        
-//        educacionService.saveEducacion(educacion);
-//        
-//        return educacion;
-//    }
+    }    
     
     @GetMapping ("/educacion/encontrar/{id}")
     public ResponseEntity<Educacion> findEducacion(@PathVariable Long id){
         Educacion educacionBuscada = educacionService.findEducacion(id);
         return new ResponseEntity<>(educacionBuscada, HttpStatus.OK);
+    }
+    
+    @GetMapping("/educacion/detail/{id}")
+    public ResponseEntity<Educacion> getById(@PathVariable("id") Long id){
+        
+        if(!educacionService.existsById(id))
+            return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+        
+        Educacion educacion = educacionService.getOne(id).get();
+        
+        return new ResponseEntity(educacion, HttpStatus.OK);
     }
     
 }

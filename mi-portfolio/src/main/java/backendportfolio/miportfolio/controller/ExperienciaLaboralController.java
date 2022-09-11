@@ -55,29 +55,7 @@ public class ExperienciaLaboralController {
         
         return new ResponseEntity(new Mensaje("Experiencia eliminada"), HttpStatus.OK);
         
-    }
-    
-//    @PutMapping ("/expLaboral/editar/{id}")
-//    public ExperienciaLaboral editarExpLaboral(@PathVariable Long id,
-//                                             @RequestParam ("nombreEmpresa") String nuevoNombreEmpresa,
-//                                             @RequestParam ("link_logo") String nuevoLogo,
-//                                             @RequestParam ("nombrePuesto") String nuevoNombrePuesto,
-//                                             @RequestParam ("fechaIngreso") String nuevoFechaIngreso,
-//                                             @RequestParam ("fechaFin") String nuevoFechaFin){
-//        
-//        ExperienciaLaboral expLaboral = expLaboralService.findExperienciaLaboral(id);
-//        
-//        expLaboral.setNombreEmpresa(nuevoNombreEmpresa);
-//        expLaboral.setLink_logo(nuevoLogo);
-//        expLaboral.setNombrePuesto(nuevoNombrePuesto);
-//        expLaboral.setFechaIngreso(nuevoFechaIngreso);
-//        expLaboral.setFechaFin(nuevoFechaFin);
-//        
-//        expLaboralService.saveExperienciaLaboral(expLaboral);
-//        
-//        return expLaboral;
-//        
-//    }
+    }  
     
     @PutMapping ("/expLaboral/editar/{id}")
     public ResponseEntity<?> editarExpLaboral(@PathVariable("id") Long id, @RequestBody dtoExperienciaLaboral dtoExp){
