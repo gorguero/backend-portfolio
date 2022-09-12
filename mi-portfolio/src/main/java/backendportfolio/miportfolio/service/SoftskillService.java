@@ -5,6 +5,7 @@ import backendportfolio.miportfolio.entity.Softskill;
 import backendportfolio.miportfolio.interfaces.ISoftskillService;
 import backendportfolio.miportfolio.repositroy.ISoftSkillsRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,15 @@ public class SoftskillService implements ISoftskillService{
     public Softskill editSoftskill(Softskill softskill) {
         return iSoftskillRepository.save(softskill);
     }
-    
-    
+
+    @Override
+    public boolean existsById(Long id) {
+        return iSoftskillRepository.existsById(id);
+    }
+
+    @Override
+    public Optional<Softskill> getOne(Long id) {
+        return iSoftskillRepository.findById(id);
+    }
     
 }

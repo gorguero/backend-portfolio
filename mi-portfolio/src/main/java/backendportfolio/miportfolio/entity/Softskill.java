@@ -23,8 +23,7 @@ public class Softskill {
     public Softskill() {
     }
 
-    public Softskill(Long idSkill, String nombre, int nivel) {
-        this.idSkill = idSkill;
+    public Softskill(String nombre, int nivel) {
         this.nombre = nombre;
         this.nivel = nivel;
     }
