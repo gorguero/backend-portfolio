@@ -5,8 +5,10 @@ import backendportfolio.miportfolio.entity.ExperienciaLaboral;
 import backendportfolio.miportfolio.interfaces.IExperienciaLaboralService;
 import backendportfolio.miportfolio.repositroy.IExperienciaLaboralRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ExperienciaLaboralService implements IExperienciaLaboralService{
@@ -40,4 +42,14 @@ public class ExperienciaLaboralService implements IExperienciaLaboralService{
         return iExpLaboralRepository.save(expLaboral);
     }
     
+    @Override
+    public Optional<ExperienciaLaboral> getOne(Long id){
+        return iExpLaboralRepository.findById(id);
+    }    
+    
+    @Override
+    public boolean existsById(Long id){
+        return iExpLaboralRepository.existsById(id);
+    }
+     
 }

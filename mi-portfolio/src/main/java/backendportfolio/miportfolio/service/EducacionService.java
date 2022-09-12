@@ -2,9 +2,11 @@
 package backendportfolio.miportfolio.service;
 
 import backendportfolio.miportfolio.entity.Educacion;
+import backendportfolio.miportfolio.exceptions.ResourceNotFoundException;
 import backendportfolio.miportfolio.interfaces.IEducacionService;
 import backendportfolio.miportfolio.repositroy.IEducacionRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,8 @@ public class EducacionService implements IEducacionService{
     }
 
     @Override
-    public Educacion saveEducacion(Educacion educacion) {
-        return iEducacionRepository.save(educacion);
+    public void saveEducacion(Educacion educacion) {
+        iEducacionRepository.save(educacion);
     }
 
     @Override
@@ -38,6 +40,16 @@ public class EducacionService implements IEducacionService{
     @Override
     public Educacion editEducacion(Educacion educacion) {
         return iEducacionRepository.save(educacion);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return iEducacionRepository.existsById(id);
+    }
+
+    @Override
+    public Optional<Educacion> getOne(Long id) {
+        return iEducacionRepository.findById(id);
     }
     
 }
