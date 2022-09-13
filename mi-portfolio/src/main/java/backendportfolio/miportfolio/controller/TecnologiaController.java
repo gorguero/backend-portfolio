@@ -1,10 +1,14 @@
 
 package backendportfolio.miportfolio.controller;
 
+import backendportfolio.miportfolio.dto.dtoTecnologia;
 import backendportfolio.miportfolio.entity.Tecnologia;
 import backendportfolio.miportfolio.interfaces.ITecnologiaService;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,40 +27,66 @@ public class TecnologiaController {
     private ITecnologiaService tecnologiaService;
     
     @GetMapping ("/tecnologia/obtener")
-    public List<Tecnologia> getTecnologia(){
-        return tecnologiaService.getTecnologia();
+    public ResponseEntity<List<Tecnologia>> getTecnologia(){
+        List<Tecnologia> listTecnologia = tecnologiaService.getTecnologia();
+        return new ResponseEntity(listTecnologia, HttpStatus.OK);
     }
     
     @PostMapping ("/tecnologia/crear")
-    public String agregarTecnologia(@RequestBody Tecnologia tecnologia){
+    public ResponseEntity<?> agregarTecnologia(@RequestBody dtoTecnologia dtoTecnologia){
+        
+        if(StringUtils.isBlank(dtoTecnologia.getNombre()))
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+        
+        Tecnologia tecnologia = new Tecnologia(dtoTecnologia.getNombre(), dtoTecnologia.getLink_logo());      
         tecnologiaService.saveTecnologia(tecnologia);
-        return "Se ha creado correctamente";
+        
+        return new ResponseEntity(new Mensaje("Tecnologia agregada"), HttpStatus.OK);
     }
     
     @DeleteMapping ("/tecnologia/borrar/{id}")
-    public String eliminarTecnologia(@PathVariable Long id){
+    public ResponseEntity<?> eliminarTecnologia(@PathVariable("id") Long id){
+        
+        if(!tecnologiaService.existsById(id))
+            return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
+        
         tecnologiaService.deleteTecnologia(id);
-        return "Se ha eliminado correctamente";
+        
+        return new ResponseEntity(new Mensaje("Tecnologia eliminada"), HttpStatus.OK);
     }
     
     @PutMapping ("/tecnologia/editar/{id}")
-    public Tecnologia editarTecnologia(@PathVariable Long id,
-                                    @RequestParam ("nombre") String nuevoNombre,
-                                    @RequestParam ("link_logo") String nuevoLogo){
+    public ResponseEntity<?> editarTecnologia(@PathVariable("id") Long id,@RequestBody dtoTecnologia dtoTecnologia){
         
-        Tecnologia tecnologia = tecnologiaService.findTecnologia(id);
+        if(!tecnologiaService.existsById(id))
+            return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(dtoTecnologia.getNombre()))
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         
-        tecnologia.setNombre(nuevoNombre);
-        tecnologia.setLink_logo(nuevoLogo);
+        Tecnologia tecnologia = tecnologiaService.getOne(id).get();
+        
+        tecnologia.setNombre(dtoTecnologia.getNombre());
+        tecnologia.setLink_logo(dtoTecnologia.getLink_logo());
         
         tecnologiaService.saveTecnologia(tecnologia);
         
-        return tecnologia;
+        return new ResponseEntity(new Mensaje("Tecnologia actualizada"), HttpStatus.OK);
     }
     
     @GetMapping ("/tecnologia/encontrar/{id}")
     public Tecnologia findTecnologia(@PathVariable Long id){
         return tecnologiaService.findTecnologia(id);
+    }
+    
+    @GetMapping("/tecnologia/detail/{id}")
+    public ResponseEntity<Tecnologia> getById(@PathVariable("id") Long id){
+        
+        if(!tecnologiaService.existsById(id))
+            return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+        
+        Tecnologia tecnologia = tecnologiaService.getOne(id).get();
+        
+        return new ResponseEntity(tecnologia, HttpStatus.OK);
     }
     
 }
