@@ -24,8 +24,7 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(Long idProyecto, String titulo, String descripcion, String link_portada, String link_proyecto) {
-        this.idProyecto = idProyecto;
+    public Proyecto(String titulo, String descripcion, String link_portada, String link_proyecto) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.link_portada = link_portada;

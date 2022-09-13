@@ -5,6 +5,7 @@ import backendportfolio.miportfolio.entity.Proyecto;
 import backendportfolio.miportfolio.interfaces.IProyectoService;
 import backendportfolio.miportfolio.repositroy.IProyectoRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,16 @@ public class ProyectoService implements IProyectoService{
     @Override
     public Proyecto editProyecto(Proyecto proyecto) {
         return iProyectoRepositroy.save(proyecto);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return iProyectoRepositroy.existsById(id);
+    }
+
+    @Override
+    public Optional<Proyecto> getOne(Long id) {
+        return iProyectoRepositroy.findById(id);
     }
     
 }
