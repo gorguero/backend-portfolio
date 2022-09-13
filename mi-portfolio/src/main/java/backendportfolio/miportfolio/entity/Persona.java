@@ -19,7 +19,6 @@ public class Persona implements Serializable{
     @Column(nullable=false, updatable=false)
     private Long idPersona;
     
-
     private String nombre;
     private String apellido;
     private String presentacionUno;
@@ -34,8 +33,7 @@ public class Persona implements Serializable{
     public Persona() {
     }
 
-    public Persona(Long idPersona, String nombre, String apellido, String presentacionUno, String presentacionDos, String telefono, String email, String ubicacion, String link_perfil, String perfilLaboral) {
-        this.idPersona = idPersona;
+    public Persona(String nombre, String apellido, String presentacionUno, String presentacionDos, String telefono, String email, String ubicacion, String link_perfil, String perfilLaboral) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.presentacionUno = presentacionUno;

@@ -5,6 +5,7 @@ import backendportfolio.miportfolio.entity.Persona;
 import backendportfolio.miportfolio.interfaces.IPersonaService;
 import backendportfolio.miportfolio.repositroy.IPersonaRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,16 @@ public class PersonaService implements IPersonaService{
     @Override
     public Persona editPersona(Persona persona) {
         return iPersonaRepository.save(persona);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return iPersonaRepository.existsById(id);
+    }
+
+    @Override
+    public Optional<Persona> getOne(Long id) {
+        return iPersonaRepository.findById(id);
     }
     
 }
