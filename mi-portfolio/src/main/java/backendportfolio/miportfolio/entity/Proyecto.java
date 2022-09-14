@@ -20,15 +20,17 @@ public class Proyecto {
     private String descripcion;
     private String link_portada;
     private String link_proyecto;
+    private String tecnologias;
 
     public Proyecto() {
     }
 
-    public Proyecto(String titulo, String descripcion, String link_portada, String link_proyecto) {
+    public Proyecto(String titulo, String descripcion, String link_portada, String link_proyecto, String tecnologias) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.link_portada = link_portada;
         this.link_proyecto = link_proyecto;
+        this.tecnologias = tecnologias;
     }
     
 }

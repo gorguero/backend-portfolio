@@ -17,15 +17,19 @@ public class dtoProyecto {
     
     @NotBlank
     private String link_proyecto;
+    
+    @NotBlank
+    private String tecnologias;
 
     public dtoProyecto() {
     }
 
-    public dtoProyecto(String titulo, String descripcion, String link_portada, String link_proyecto) {
+    public dtoProyecto(String titulo, String descripcion, String link_portada, String link_proyecto, String tecnologias) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.link_portada = link_portada;
         this.link_proyecto = link_proyecto;
+        this.tecnologias = tecnologias;
     }
 
     public String getTitulo() {
@@ -59,7 +63,14 @@ public class dtoProyecto {
     public void setLink_proyecto(String link_proyecto) {
         this.link_proyecto = link_proyecto;
     }
-    
+
+    public String getTecnologias() {
+        return tecnologias;
+    }
+
+    public void setTecnologias(String tecnologias) {
+        this.tecnologias = tecnologias;
+    }
     
     
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -38,7 +37,7 @@ public class ProyectoController {
         if(StringUtils.isBlank(dtoProyecto.getTitulo()))
             return new ResponseEntity(new Mensaje("El titulo es obligatorio"), HttpStatus.BAD_REQUEST);
         
-        Proyecto proyecto = new Proyecto(dtoProyecto.getTitulo(), dtoProyecto.getDescripcion(), dtoProyecto.getLink_portada(), dtoProyecto.getLink_proyecto());
+        Proyecto proyecto = new Proyecto(dtoProyecto.getTitulo(), dtoProyecto.getDescripcion(), dtoProyecto.getLink_portada(), dtoProyecto.getLink_proyecto(), dtoProyecto.getTecnologias());
         proyectoService.saveProyecto(proyecto);
         
         return new ResponseEntity(new Mensaje("Proyecto agregado"), HttpStatus.OK);
@@ -69,6 +68,7 @@ public class ProyectoController {
         proyecto.setDescripcion(dtoProyecto.getDescripcion());
         proyecto.setLink_portada(dtoProyecto.getLink_portada());
         proyecto.setLink_proyecto(dtoProyecto.getLink_proyecto());
+        proyecto.setTecnologias(dtoProyecto.getTecnologias());
         
         proyectoService.saveProyecto(proyecto);
         
