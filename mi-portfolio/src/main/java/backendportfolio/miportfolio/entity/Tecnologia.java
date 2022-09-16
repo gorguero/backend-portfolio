@@ -22,8 +22,7 @@ public class Tecnologia {
     public Tecnologia() {
     }
 
-    public Tecnologia(Long idTecnologia, String nombre, String link_logo) {
-        this.idTecnologia = idTecnologia;
+    public Tecnologia(String nombre, String link_logo) {
         this.nombre = nombre;
         this.link_logo = link_logo;
     }

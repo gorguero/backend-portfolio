@@ -5,6 +5,7 @@ import backendportfolio.miportfolio.entity.Tecnologia;
 import backendportfolio.miportfolio.interfaces.ITecnologiaService;
 import backendportfolio.miportfolio.repositroy.ITecnologiaRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,16 @@ public class TecnologiaService implements ITecnologiaService{
     @Override
     public Tecnologia editTecnologia(Tecnologia tecnologia) {
         return iTecnologiaRepository.save(tecnologia);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+       return iTecnologiaRepository.existsById(id);
+    }
+
+    @Override
+    public Optional<Tecnologia> getOne(Long id) {
+        return iTecnologiaRepository.findById(id);
     }
     
 }
