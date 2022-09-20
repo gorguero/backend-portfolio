@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class PersonaController {
         return new ResponseEntity(listPersonas, HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping ("/persona/crear")
     public ResponseEntity<?> agregarPersona(@RequestBody dtoPersona dtoPersona){
         
@@ -43,6 +45,7 @@ public class PersonaController {
         return new ResponseEntity(new Mensaje("Persona agregada"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping ("/persona/borrar/{id}")
     public ResponseEntity<?> eliminarPersona(@PathVariable("id") Long id){
         
@@ -54,6 +57,7 @@ public class PersonaController {
         return new ResponseEntity(new Mensaje("Persona eliminada"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping ("/persona/editar/{id}")
     public ResponseEntity<?> editarPersona(@PathVariable("id") Long id,@RequestBody dtoPersona dtoPersona){
         

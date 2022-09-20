@@ -3,13 +3,13 @@ package backendportfolio.miportfolio.controller;
 
 import backendportfolio.miportfolio.dto.dtoEducacion;
 import backendportfolio.miportfolio.entity.Educacion;
-import backendportfolio.miportfolio.exceptions.ResourceNotFoundException;
 import backendportfolio.miportfolio.interfaces.IEducacionService;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,6 +32,7 @@ public class EducacionController {
         return new ResponseEntity(listEducacion, HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/educacion/crear")
     public ResponseEntity<?> crearEducacion(@RequestBody dtoEducacion dtoEducacion){
         if(StringUtils.isBlank(dtoEducacion.getNombreInsti()))
@@ -45,6 +44,7 @@ public class EducacionController {
         return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
     }   
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping ("/educacion/borrar/{id}")
     public ResponseEntity<?> eliminarEducacion(@PathVariable("id") Long id){
         
@@ -55,6 +55,7 @@ public class EducacionController {
         return new ResponseEntity(new Mensaje("Educacion eliminada"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping ("/educacion/editar/{id}")
     public ResponseEntity<?> editarEducacion(@PathVariable("id") Long id, @RequestBody dtoEducacion dtoEducacion){
         

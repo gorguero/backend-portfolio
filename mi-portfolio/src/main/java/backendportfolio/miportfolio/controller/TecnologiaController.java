@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,6 +32,7 @@ public class TecnologiaController {
         return new ResponseEntity(listTecnologia, HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping ("/tecnologia/crear")
     public ResponseEntity<?> agregarTecnologia(@RequestBody dtoTecnologia dtoTecnologia){
         
@@ -44,6 +45,7 @@ public class TecnologiaController {
         return new ResponseEntity(new Mensaje("Tecnologia agregada"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping ("/tecnologia/borrar/{id}")
     public ResponseEntity<?> eliminarTecnologia(@PathVariable("id") Long id){
         
@@ -55,6 +57,7 @@ public class TecnologiaController {
         return new ResponseEntity(new Mensaje("Tecnologia eliminada"), HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping ("/tecnologia/editar/{id}")
     public ResponseEntity<?> editarTecnologia(@PathVariable("id") Long id,@RequestBody dtoTecnologia dtoTecnologia){
         

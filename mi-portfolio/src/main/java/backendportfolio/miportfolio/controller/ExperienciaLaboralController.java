@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class ExperienciaLaboralController {
         return new ResponseEntity(listExp, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping ("/expLaboral/crear")
     public ResponseEntity<?> agregarExperienciaLaboral(@RequestBody dtoExperienciaLaboral dtoExp){
         if(StringUtils.isBlank(dtoExp.getNombreEmpresa()))
@@ -43,6 +45,7 @@ public class ExperienciaLaboralController {
         return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
     }  
     
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping ("/expLaboral/borrar/{id}")
     public ResponseEntity<?> eliminarExperienciaLaboral(@PathVariable("id") Long id){
         
@@ -55,6 +58,7 @@ public class ExperienciaLaboralController {
         
     }  
     
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping ("/expLaboral/editar/{id}")
     public ResponseEntity<?> editarExpLaboral(@PathVariable("id") Long id, @RequestBody dtoExperienciaLaboral dtoExp){
         
