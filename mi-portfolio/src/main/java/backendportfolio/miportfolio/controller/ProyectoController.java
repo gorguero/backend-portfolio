@@ -32,7 +32,7 @@ public class ProyectoController {
         return new ResponseEntity(listProyecto, HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PostMapping ("/proyecto/crear")
     public ResponseEntity<?> agregarProyecto(@RequestBody dtoProyecto dtoProyecto){
         
@@ -45,7 +45,7 @@ public class ProyectoController {
         return new ResponseEntity(new Mensaje("Proyecto agregado"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @DeleteMapping ("/proyecto/borrar/{id}")
     public ResponseEntity<?> eliminarProyecto(@PathVariable("id") Long id){
         
@@ -57,7 +57,7 @@ public class ProyectoController {
         return new ResponseEntity(new Mensaje("Proyecto eliminado"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PutMapping ("/proyecto/editar/{id}")
     public ResponseEntity<?> editarProyecto(@PathVariable("id") Long id, @RequestBody dtoProyecto dtoProyecto){
         

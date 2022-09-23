@@ -33,7 +33,7 @@ public class ExperienciaLaboralController {
         return new ResponseEntity(listExp, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PostMapping ("/expLaboral/crear")
     public ResponseEntity<?> agregarExperienciaLaboral(@RequestBody dtoExperienciaLaboral dtoExp){
         if(StringUtils.isBlank(dtoExp.getNombreEmpresa()))
@@ -45,7 +45,7 @@ public class ExperienciaLaboralController {
         return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
     }  
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @DeleteMapping ("/expLaboral/borrar/{id}")
     public ResponseEntity<?> eliminarExperienciaLaboral(@PathVariable("id") Long id){
         
@@ -58,7 +58,7 @@ public class ExperienciaLaboralController {
         
     }  
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PutMapping ("/expLaboral/editar/{id}")
     public ResponseEntity<?> editarExpLaboral(@PathVariable("id") Long id, @RequestBody dtoExperienciaLaboral dtoExp){
         

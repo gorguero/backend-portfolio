@@ -32,7 +32,7 @@ public class TecnologiaController {
         return new ResponseEntity(listTecnologia, HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PostMapping ("/tecnologia/crear")
     public ResponseEntity<?> agregarTecnologia(@RequestBody dtoTecnologia dtoTecnologia){
         
@@ -45,7 +45,7 @@ public class TecnologiaController {
         return new ResponseEntity(new Mensaje("Tecnologia agregada"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @DeleteMapping ("/tecnologia/borrar/{id}")
     public ResponseEntity<?> eliminarTecnologia(@PathVariable("id") Long id){
         
@@ -57,7 +57,7 @@ public class TecnologiaController {
         return new ResponseEntity(new Mensaje("Tecnologia eliminada"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PutMapping ("/tecnologia/editar/{id}")
     public ResponseEntity<?> editarTecnologia(@PathVariable("id") Long id,@RequestBody dtoTecnologia dtoTecnologia){
         

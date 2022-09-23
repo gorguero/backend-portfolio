@@ -32,7 +32,7 @@ public class EducacionController {
         return new ResponseEntity(listEducacion, HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PostMapping("/educacion/crear")
     public ResponseEntity<?> crearEducacion(@RequestBody dtoEducacion dtoEducacion){
         if(StringUtils.isBlank(dtoEducacion.getNombreInsti()))
@@ -44,7 +44,7 @@ public class EducacionController {
         return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
     }   
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @DeleteMapping ("/educacion/borrar/{id}")
     public ResponseEntity<?> eliminarEducacion(@PathVariable("id") Long id){
         
@@ -55,7 +55,7 @@ public class EducacionController {
         return new ResponseEntity(new Mensaje("Educacion eliminada"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PutMapping ("/educacion/editar/{id}")
     public ResponseEntity<?> editarEducacion(@PathVariable("id") Long id, @RequestBody dtoEducacion dtoEducacion){
         

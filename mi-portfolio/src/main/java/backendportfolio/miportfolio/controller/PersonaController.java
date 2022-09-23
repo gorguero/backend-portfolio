@@ -32,7 +32,7 @@ public class PersonaController {
         return new ResponseEntity(listPersonas, HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PostMapping ("/persona/crear")
     public ResponseEntity<?> agregarPersona(@RequestBody dtoPersona dtoPersona){
         
@@ -45,7 +45,7 @@ public class PersonaController {
         return new ResponseEntity(new Mensaje("Persona agregada"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @DeleteMapping ("/persona/borrar/{id}")
     public ResponseEntity<?> eliminarPersona(@PathVariable("id") Long id){
         
@@ -57,7 +57,7 @@ public class PersonaController {
         return new ResponseEntity(new Mensaje("Persona eliminada"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PutMapping ("/persona/editar/{id}")
     public ResponseEntity<?> editarPersona(@PathVariable("id") Long id,@RequestBody dtoPersona dtoPersona){
         

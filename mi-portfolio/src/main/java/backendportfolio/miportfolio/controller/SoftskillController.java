@@ -32,7 +32,7 @@ public class SoftskillController {
         return new ResponseEntity(listSoftskill, HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PostMapping ("/skill/crear")
     public ResponseEntity<?> agregarSoftskill(@RequestBody dtoSoftskill dtoSoftskill){
         
@@ -45,7 +45,7 @@ public class SoftskillController {
         return new ResponseEntity(new Mensaje("Softskill agregada"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @DeleteMapping ("/skill/borrar/{id}")
     public ResponseEntity<?> eliminarSoftskill(@PathVariable("id") Long id){
         
@@ -57,7 +57,7 @@ public class SoftskillController {
         return new ResponseEntity(new Mensaje("Softskill eliminada"), HttpStatus.OK);
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @PutMapping ("/skill/editar/{id}")
     public ResponseEntity<?> editarSoftskill(@PathVariable("id") Long id, @RequestBody dtoSoftskill dtoSoftskill){
         
